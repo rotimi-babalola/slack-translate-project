@@ -1,18 +1,20 @@
-require("dotenv").config();
-import axios from "axios";
+/* eslint no-undef: 0*/
 
-const url = "https://translate.yandex.net/api/v1.5/tr.json/getLangs";
+require('dotenv').config();
+const axios = require('axios');
+
+const url = 'https://translate.yandex.net/api/v1.5/tr.json/getLangs';
 const apiKey = process.env.YANDEX_API_KEY;
 
-const languageCode = "en";
+const languageCode = 'en';
 
-data = `key=${apiKey}&ui=${languageCode}`;
+const data = `key=${apiKey}&ui=${languageCode}`;
 
 axios
   .post(url, data, {
     headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    }
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
   })
   .then(response => {
     console.log(response.data);
