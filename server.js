@@ -3,6 +3,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import TranslatorController from './controllers/translator';
+import SendHelp from './middleware/SendHelp';
 
 const app = express();
 
@@ -18,6 +19,6 @@ app.get('/', (req, res) => {
   res.send('Bienvenido a Language translator!!!');
 });
 
-app.post('/translate', TranslatorController.translateText);
+app.post('/translate', SendHelp.verifyHelpMessage, TranslatorController.translateText);
 
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
