@@ -2,6 +2,7 @@ require('dotenv').config(); //eslint-disable-line no-undef
 
 import axios from 'axios';
 import formatParams from '../helpers/FormatParams';
+import SlackController from '../controllers/slack';
 
 class TranslatorController {
   /**
@@ -9,7 +10,6 @@ class TranslatorController {
    * For now we'll hardcode the languages
    */
   static translateText(req, res) {
-    console.log(req.body, '++++++++');
     const params = req.body.text.split(' ');
     const url = 'https://translate.yandex.net/api/v1.5/tr.json/translate';
     const apiKey = process.env.YANDEX_API_KEY; //eslint-disable-line no-undef
@@ -34,7 +34,16 @@ class TranslatorController {
          * what if there are multiple elements in the array???
          */
         // send message to channel or dm
-        res.send(response.data.text[0]);
+        const channel = req.body.channel_id;
+        const text = response.data.text[0];
+
+        SlackController.sendMessage(text, channel);
+        /**
+         * Hacky?
+         * I'm doing this because I don't want to send anything back after
+         * sending the message
+         */
+        res.send(null);
       })
       .catch(error => {
         res.send(error);
