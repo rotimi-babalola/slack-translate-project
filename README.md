@@ -21,3 +21,21 @@ If you want to access this help page from Slack type
 ```
 /translate help
 ```
+
+## SETTING UP LOCALLY
+- Clone this repo
+```
+git clone https://github.com/andela-rbabalola/slack-translate-project.git
+```
+
+- Install dependencies
+```
+npm install
+```
+
+- Create a `.env` file locally - ensure this file added to `.gitignore` so you don't accidentally push it to GitHub. And add your secret keys as specified in the `.env.sample` file.
+
+- Start the server
+```
+npm start
+```
