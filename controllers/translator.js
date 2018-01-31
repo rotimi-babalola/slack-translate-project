@@ -3,6 +3,7 @@ require('dotenv').config(); //eslint-disable-line no-undef
 import axios from 'axios';
 import formatParams from '../helpers/FormatParams';
 import SlackController from '../controllers/slack';
+import matchLanguage from '../helpers/matchLanguage';
 
 class TranslatorController {
   /**
@@ -52,8 +53,9 @@ class TranslatorController {
 
   /**
    * Static method to detect a language's text
-   * Not sure we'll need this but leaving it here anyway
-   * Could it be a 'play' function???
+   * Note that this is not 100% percent accurate
+   * but I think its better of you give it long
+   * sample text
    */
 
   static detectLanguage(req, res) {
@@ -69,7 +71,8 @@ class TranslatorController {
         },
       })
       .then(response => {
-        res.send(response.data.lang);
+        console.log(response);
+        res.send(matchLanguage(response.data.lang));
       })
       .catch(error => {
         res.send(error);

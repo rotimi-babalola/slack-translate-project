@@ -10,7 +10,7 @@ const axios = require('axios');
 const url = 'https://translate.yandex.net/api/v1.5/tr.json/detect';
 const apiKey = process.env.YANDEX_API_KEY;
 
-const text = 'hujambo';
+const text = 'te amo';
 
 const data = `key=${apiKey}&text=${text}`;
 
