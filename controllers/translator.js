@@ -38,6 +38,8 @@ class TranslatorController {
         const channel = req.body.channel_id;
         const text = response.data.text[0];
 
+        console.log(response.data, '++++');
+
         SlackController.sendMessage(text, channel);
         /**
          * Hacky?
@@ -47,6 +49,7 @@ class TranslatorController {
         res.send(null);
       })
       .catch(error => {
+        console.log(error, '++++');
         res.send(error);
       });
   }
