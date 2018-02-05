@@ -21,4 +21,7 @@ app.get('/', (req, res) => {
 
 app.post('/translate', SendHelp.verifyHelpMessage, TranslatorController.translateText);
 
+// I'm exposing the endpoint here. Although you can't access this from Slack
+app.post('/detect', SendHelp.verifyHelpMessage, TranslatorController.detectLanguage);
+
 app.listen(3000, () => console.log('Example app listening on port 3000!'));

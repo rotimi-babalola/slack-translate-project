@@ -3,11 +3,11 @@ require('dotenv').config(); //eslint-disable-line no-undef
 import axios from 'axios';
 import formatParams from '../helpers/FormatParams';
 import SlackController from '../controllers/slack';
+import matchLanguage from '../helpers/matchLanguage';
 
 class TranslatorController {
   /**
    * Static method to translate text.
-   * For now we'll hardcode the languages
    */
   static translateText(req, res) {
     const params = req.body.text.split(' ');
@@ -40,8 +40,8 @@ class TranslatorController {
         SlackController.sendMessage(text, channel);
         /**
          * Hacky?
-         * I'm doing this because I don't want to send anything back after
-         * sending the message
+         * I'm doing this because I don't want to send
+         * anything back after sending the message
          */
         res.send(null);
       })
@@ -52,8 +52,9 @@ class TranslatorController {
 
   /**
    * Static method to detect a language's text
-   * Not sure we'll need this but leaving it here anyway
-   * Could it be a 'play' function???
+   * Note that this is not 100% percent accurate
+   * but I think its better if you give it long
+   * sample text
    */
 
   static detectLanguage(req, res) {
@@ -69,7 +70,7 @@ class TranslatorController {
         },
       })
       .then(response => {
-        res.send(response.data.lang);
+        res.send(matchLanguage(response.data.lang));
       })
       .catch(error => {
         res.send(error);
