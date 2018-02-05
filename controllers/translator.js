@@ -8,7 +8,6 @@ import matchLanguage from '../helpers/matchLanguage';
 class TranslatorController {
   /**
    * Static method to translate text.
-   * For now we'll hardcode the languages
    */
   static translateText(req, res) {
     const params = req.body.text.split(' ');
@@ -38,18 +37,15 @@ class TranslatorController {
         const channel = req.body.channel_id;
         const text = response.data.text[0];
 
-        console.log(response.data, '++++');
-
         SlackController.sendMessage(text, channel);
         /**
          * Hacky?
-         * I'm doing this because I don't want to send anything back after
-         * sending the message
+         * I'm doing this because I don't want to send
+         * anything back after sending the message
          */
         res.send(null);
       })
       .catch(error => {
-        console.log(error, '++++');
         res.send(error);
       });
   }
@@ -57,7 +53,7 @@ class TranslatorController {
   /**
    * Static method to detect a language's text
    * Note that this is not 100% percent accurate
-   * but I think its better of you give it long
+   * but I think its better if you give it long
    * sample text
    */
 
@@ -74,7 +70,6 @@ class TranslatorController {
         },
       })
       .then(response => {
-        console.log(response);
         res.send(matchLanguage(response.data.lang));
       })
       .catch(error => {
